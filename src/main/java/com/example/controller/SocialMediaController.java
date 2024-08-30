@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
@@ -62,20 +61,17 @@ public class SocialMediaController {
     // Exception Handling
     // ******************
     @ExceptionHandler(BadRequestException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String badRequest(BadRequestException ex) {
-        return ex.getMessage();
+    public ResponseEntity<String> badRequest(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(DuplicateUsernameException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public String duplicateUserNameConflict(DuplicateUsernameException ex) {
-        return ex.getMessage();
+    public ResponseEntity<String> duplicateUserNameConflict(DuplicateUsernameException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String unauthorized(UnauthorizedException ex) {
-        return ex.getMessage();
+    public ResponseEntity<String> unauthorized(UnauthorizedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 }
