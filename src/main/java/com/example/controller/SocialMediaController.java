@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.Account;
 import com.example.exception.BadRequestException;
 import com.example.exception.DuplicateUsernameException;
+import com.example.exception.UnauthorizedException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -34,7 +35,7 @@ public class SocialMediaController {
 
     /**
      *  Requirement #1: Process new user registrations.
-     *  @param account The body of the request reprenting a new Account object to be registered, not including account_id.
+     *  @param account The body of the request representing a new Account object to be registered, not including account_id.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body representing the newly registered account, including its generated account_id. 
      */
@@ -43,7 +44,19 @@ public class SocialMediaController {
         Account registered = accountService.registerAccount(account);
         return ResponseEntity.status(HttpStatus.OK).body(registered);
     }
-    
+
+    /**
+     *  Requirement #2: Process user logins.
+     *  @param account The body of the request representing the Account that is trying to log in.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body representing the verified account, including its account_id.
+     */
+    @PostMapping("/login")
+    public ResponseEntity<Account> verifyLogin(@RequestBody Account account) throws UnauthorizedException {
+        Account verified = accountService.verifyLogin(account);
+        return ResponseEntity.status(HttpStatus.OK).body(verified);
+    }
+
 
     // ******************
     // Exception Handling
@@ -57,6 +70,12 @@ public class SocialMediaController {
     @ExceptionHandler(DuplicateUsernameException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public String duplicateUserNameConflict(DuplicateUsernameException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String unauthorized(UnauthorizedException ex) {
         return ex.getMessage();
     }
 }

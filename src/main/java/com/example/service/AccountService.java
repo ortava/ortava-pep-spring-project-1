@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Account;
 import com.example.exception.BadRequestException;
 import com.example.exception.DuplicateUsernameException;
+import com.example.exception.UnauthorizedException;
 import com.example.repository.AccountRepository;
 
 @Service
@@ -26,6 +27,15 @@ public class AccountService {
             throw new DuplicateUsernameException("An account with that username already exists. Please try a different username.");
         } else {
             return accountRepository.save(account);
+        }
+    }
+
+    public Account verifyLogin(Account account) throws UnauthorizedException {
+        Account existingAccount = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
+        if(existingAccount != null) {
+            return existingAccount;
+        } else {
+            throw new UnauthorizedException("Invalid username/password combination.");
         }
     }
 }
