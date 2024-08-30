@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,6 +81,16 @@ public class SocialMediaController {
     @GetMapping("/messages")
     public ResponseEntity<List<Message>> retrieveAllMessages() {
         return ResponseEntity.status(200).body(messageService.getAllMessages());
+    }
+
+     /**
+     *  Requirement #5: Retrieve a message by its ID.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body the matching message. Body is empty if there is no matching message.
+     */
+    @GetMapping("/messages/{messageId}")
+    public ResponseEntity<Message> retrieveMessageByMessageId(@PathVariable int messageId) {
+        return ResponseEntity.status(200).body(messageService.getMessageByMessageId(messageId));
     }
 
     // ******************
