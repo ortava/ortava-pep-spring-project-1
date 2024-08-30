@@ -1,9 +1,12 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,6 +70,16 @@ public class SocialMediaController {
     public ResponseEntity<Message> createMessage(@RequestBody Message message) throws BadRequestException {
         Message createdMessage = messageService.addMessage(message);
         return ResponseEntity.status(HttpStatus.OK).body(createdMessage);
+    }
+
+    /**
+     *  Requirement #4: Retrieve all messages.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body representing a list of all available messages.
+     */
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> retrieveAllMessages() {
+        return ResponseEntity.status(200).body(messageService.getAllMessages());
     }
 
     // ******************
