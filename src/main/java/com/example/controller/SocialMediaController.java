@@ -59,9 +59,9 @@ public class SocialMediaController {
 
     /**
      *  Requirement #3: Process the creation of new messages.
-     *  @param message The body of the request representing the Account that is trying to log in.
+     *  @param message The body of the request representing the message to be created, not including message_id.
      *  @return A ResponseEntity with the status of 200 (OK) 
-     *          and a body representing the verified account, including its account_id.
+     *          and a body representing the created message, including its generated message_id.
      */
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) throws BadRequestException {
