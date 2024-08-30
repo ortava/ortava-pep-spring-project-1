@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.exception.BadRequestException;
 import com.example.exception.DuplicateUsernameException;
 import com.example.exception.UnauthorizedException;
@@ -56,6 +57,17 @@ public class SocialMediaController {
         return ResponseEntity.status(HttpStatus.OK).body(verified);
     }
 
+    /**
+     *  Requirement #3: Process the creation of new messages.
+     *  @param message The body of the request representing the Account that is trying to log in.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body representing the verified account, including its account_id.
+     */
+    @PostMapping("/messages")
+    public ResponseEntity<Message> createMessage(@RequestBody Message message) throws BadRequestException {
+        Message createdMessage = messageService.addMessage(message);
+        return ResponseEntity.status(HttpStatus.OK).body(createdMessage);
+    }
 
     // ******************
     // Exception Handling
