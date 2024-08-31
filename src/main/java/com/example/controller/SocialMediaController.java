@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,8 @@ public class SocialMediaController {
      *  @param  account The body of the request representing a new Account object to be registered, not including accountId.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body representing the newly registered account, including its generated accountId. 
+     *  @throws DuplicateUsernameException
+     *  @throws BadRequestException
      */
     @PostMapping("/register")
     public ResponseEntity<Account> registerAccount(@RequestBody Account account) throws DuplicateUsernameException, BadRequestException {
@@ -55,6 +58,7 @@ public class SocialMediaController {
      *  @param  account The body of the request representing the Account that is trying to log in.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body representing the verified account, including its accountId.
+     *  @throws UnauthorizedException
      */
     @PostMapping("/login")
     public ResponseEntity<Account> verifyLogin(@RequestBody Account account) throws UnauthorizedException {
@@ -67,6 +71,7 @@ public class SocialMediaController {
      *  @param  message The body of the request representing the message to be created, not including messageId.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body representing the created message, including its generated messageId.
+     *  @throws BadRequestException
      */
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) throws BadRequestException {
@@ -109,6 +114,20 @@ public class SocialMediaController {
         } else {
             return ResponseEntity.status(200).build();
         }
+    }
+
+    /**
+     *  Requirement #7: Update a message text identified by a message ID.
+     *  @param  newMessage  A message object containing the new message text. (From the request body)
+     *  @param  messageId   The ID of the message to be updated.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body containing the number of rows in the database that were updated.
+     *  @throws BadRequestException
+     */
+    @PatchMapping("/messages/{messageId}")
+    public ResponseEntity<Integer> patchMessageTextByMessageId(@RequestBody Message newMessage, @PathVariable int messageId) throws BadRequestException {
+        String messageText = newMessage.getMessageText();
+        return ResponseEntity.status(200).body(messageService.updateMessageText(messageText, messageId));
     }
 
     // ******************

@@ -64,4 +64,24 @@ public class MessageService {
     public int removeMessage(int messageId) {
         return messageRepository.deleteByMessageId(messageId);
     }
+
+    /**
+     *  @param  messageText The new message text that will be used to update the existing message.
+     *  @param  messageId   The ID of the message to be deleted from the database.
+     *  @return The number of rows that were updated (deleted) in the database. 
+     *          1 if the deletion was successful, otherwise 0.
+     *  @throws BadRequestException When the new message text is blank or has a length greater than 255.
+     *                              Or when the message to be updated does not exist.
+     */
+    public int updateMessageText(String messageText, int messageId) throws BadRequestException {
+        if(messageText.isBlank()) {
+            throw new BadRequestException("Your message must not be blank.");
+        } else if(messageText.length() > 255) {
+            throw new BadRequestException("Your message must not exceed 255 characters.");
+        } else if(!messageRepository.existsById(messageId)) {
+            throw new BadRequestException("The message you are trying to update does not exist.");
+        } else {
+            return messageRepository.updateMessageTextByMessageId(messageText, messageId);
+        }
+    }
 }
