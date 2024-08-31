@@ -22,6 +22,12 @@ public class MessageService {
         this.accountRepository = accountRepository;
     }
 
+    /**
+     *  @param  message The new message to be created, not including message_id.
+     *  @return The newly created message, including its generated message_id. 
+     *  @throws BadRequestException When the given message's text is blank or has a length greater than 255.
+     *                              Or when the user that the message is posted by does not exist.
+     */
     public Message addMessage(Message message) throws BadRequestException {
         if(message.getMessageText().isBlank()) {
             throw new BadRequestException("Your message must not be blank.");
@@ -34,10 +40,17 @@ public class MessageService {
         }
     }
 
+    /**
+     *  @return A list of all the messages that exist within the database.
+     */
     public List<Message> getAllMessages() {
         return messageRepository.findAll();
     }
 
+    /**
+     *  @param  messageId The ID of the message to be retrieved from the database.
+     *  @return The matching message from the database. If there is no message with the given ID, return null.
+     */
     public Message getMessageByMessageId(int messageId) {
         Optional<Message> optMessage = messageRepository.findById(messageId);
         return optMessage.orElse(null);

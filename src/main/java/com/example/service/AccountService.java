@@ -18,6 +18,12 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
+    /**
+     *  @param  account The new account to be registered, not including account_id.
+     *  @return The newly registered account, including its generated account_id. 
+     *  @throws DuplicateUsernameException When the given account's username already belongs to an account within the db.
+     *  @throws BadRequestException When the given account's username is blank or the password is less than 4 characters.
+     */
     public Account registerAccount(Account account) throws DuplicateUsernameException, BadRequestException {
         if(account.getUsername().isBlank()) {
             throw new BadRequestException("Username must not be blank.");
@@ -30,6 +36,11 @@ public class AccountService {
         }
     }
 
+    /**
+     *  @param  account The account attempting to log in, not including account_id.
+     *  @return The verified account, including account_id.
+     *  @throws UnauthorizedException When the login is unsuccessful (invalid username/password combination).
+     */
     public Account verifyLogin(Account account) throws UnauthorizedException {
         Account existingAccount = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
         if(existingAccount != null) {
