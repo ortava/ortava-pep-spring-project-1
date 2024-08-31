@@ -1,5 +1,7 @@
 package com.example.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,6 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Transactional
     @Query("UPDATE Message SET messageText = ?1 WHERE messageId = ?2")
     int updateMessageTextByMessageId(String messageText, int messageId);
+
+    List<Message> findMessagesByPostedBy(int accountId);
 }

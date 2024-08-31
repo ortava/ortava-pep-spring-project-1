@@ -130,6 +130,17 @@ public class SocialMediaController {
         return ResponseEntity.status(200).body(messageService.updateMessageText(messageText, messageId));
     }
 
+    /**
+     *  Requirement #8: Retrieve all messages written by a particular user.
+     *  @param  accountId   The ID of the account who posted the messages to be retrieved.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body containing a list of messages by the identified user.
+     */
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity<List<Message>> getAllMessagesByUser(@PathVariable int accountId) {
+        return ResponseEntity.status(200).body(messageService.getAllMessagesByUser(accountId));
+    }
+
     // ******************
     // Exception Handling
     // ******************

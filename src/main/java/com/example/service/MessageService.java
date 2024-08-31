@@ -84,4 +84,12 @@ public class MessageService {
             return messageRepository.updateMessageTextByMessageId(messageText, messageId);
         }
     }
+
+    /**
+     *  @param  accountId   The ID of the account who posted the messages to be retrieved.
+     *  @return A list of messages authored by the identified account.
+     */
+    public List<Message> getAllMessagesByUser(int accountId) {
+        return messageRepository.findMessagesByPostedBy(accountId);
+    }
 }
