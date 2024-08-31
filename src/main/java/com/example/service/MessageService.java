@@ -55,4 +55,13 @@ public class MessageService {
         Optional<Message> optMessage = messageRepository.findById(messageId);
         return optMessage.orElse(null);
     }
+
+    /**
+     *  @param  messageId The ID of the message to be deleted from the database.
+     *  @return The number of rows that were updated (deleted) in the database. 
+     *          1 if the deletion was successful, otherwise 0.
+     */
+    public int removeMessage(int messageId) {
+        return messageRepository.deleteByMessageId(messageId);
+    }
 }

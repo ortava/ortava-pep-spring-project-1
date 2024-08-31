@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,12 +86,29 @@ public class SocialMediaController {
 
      /**
      *  Requirement #5: Retrieve a message by its ID.
+     *  @param  messageId The ID of the message to be retrieved.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body the matching message. Body is empty if there is no matching message.
      */
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<Message> retrieveMessageByMessageId(@PathVariable int messageId) {
         return ResponseEntity.status(200).body(messageService.getMessageByMessageId(messageId));
+    }
+
+    /**
+     *  Requirement #6: Delete a message identified by a message ID.
+     *  @param  messageId The ID of the message to be deleted.
+     *  @return A ResponseEntity with the status of 200 (OK) 
+     *          and a body containing the number of rows in the database that were updated (deleted).
+     */
+    @DeleteMapping("/messages/{messageId}")
+    public ResponseEntity<Integer> deleteMessageByMessageId(@PathVariable int messageId) {
+        int rowsUpdated = messageService.removeMessage(messageId);
+        if(rowsUpdated > 0) {
+            return ResponseEntity.status(200).body(rowsUpdated);
+        } else {
+            return ResponseEntity.status(200).build();
+        }
     }
 
     // ******************
