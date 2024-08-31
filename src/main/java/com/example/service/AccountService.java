@@ -19,8 +19,8 @@ public class AccountService {
     }
 
     /**
-     *  @param  account The new account to be registered, not including account_id.
-     *  @return The newly registered account, including its generated account_id. 
+     *  @param  account The new account to be registered, not including accountId.
+     *  @return The newly registered account, including its generated accountId. 
      *  @throws DuplicateUsernameException When the given account's username already belongs to an account within the db.
      *  @throws BadRequestException When the given account's username is blank or the password is less than 4 characters.
      */
@@ -37,8 +37,8 @@ public class AccountService {
     }
 
     /**
-     *  @param  account The account attempting to log in, not including account_id.
-     *  @return The verified account, including account_id.
+     *  @param  account The account attempting to log in, not including accountId.
+     *  @return The verified account, including accountId.
      *  @throws UnauthorizedException When the login is unsuccessful (invalid username/password combination).
      */
     public Account verifyLogin(Account account) throws UnauthorizedException {

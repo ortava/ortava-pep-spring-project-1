@@ -23,8 +23,8 @@ public class MessageService {
     }
 
     /**
-     *  @param  message The new message to be created, not including message_id.
-     *  @return The newly created message, including its generated message_id. 
+     *  @param  message The new message to be created, not including messageId.
+     *  @return The newly created message, including its generated messageId. 
      *  @throws BadRequestException When the given message's text is blank or has a length greater than 255.
      *                              Or when the user that the message is posted by does not exist.
      */

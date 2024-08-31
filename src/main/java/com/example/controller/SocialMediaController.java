@@ -40,9 +40,9 @@ public class SocialMediaController {
 
     /**
      *  Requirement #1: Process new user registrations.
-     *  @param  account The body of the request representing a new Account object to be registered, not including account_id.
+     *  @param  account The body of the request representing a new Account object to be registered, not including accountId.
      *  @return A ResponseEntity with the status of 200 (OK) 
-     *          and a body representing the newly registered account, including its generated account_id. 
+     *          and a body representing the newly registered account, including its generated accountId. 
      */
     @PostMapping("/register")
     public ResponseEntity<Account> registerAccount(@RequestBody Account account) throws DuplicateUsernameException, BadRequestException {
@@ -54,7 +54,7 @@ public class SocialMediaController {
      *  Requirement #2: Process user logins.
      *  @param  account The body of the request representing the Account that is trying to log in.
      *  @return A ResponseEntity with the status of 200 (OK) 
-     *          and a body representing the verified account, including its account_id.
+     *          and a body representing the verified account, including its accountId.
      */
     @PostMapping("/login")
     public ResponseEntity<Account> verifyLogin(@RequestBody Account account) throws UnauthorizedException {
@@ -64,9 +64,9 @@ public class SocialMediaController {
 
     /**
      *  Requirement #3: Process the creation of new messages.
-     *  @param  message The body of the request representing the message to be created, not including message_id.
+     *  @param  message The body of the request representing the message to be created, not including messageId.
      *  @return A ResponseEntity with the status of 200 (OK) 
-     *          and a body representing the created message, including its generated message_id.
+     *          and a body representing the created message, including its generated messageId.
      */
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) throws BadRequestException {
