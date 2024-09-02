@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.Message;
 import com.example.exception.BadRequestException;
@@ -60,6 +61,7 @@ public class MessageService {
      *  @param  messageId The ID of the message to be deleted from the database.
      *  @return The number of rows that were updated (deleted) in the database. 
      */
+    @Transactional
     public int deleteMessage(int messageId) {
         return messageRepository.deleteByMessageId(messageId);
     }
@@ -71,6 +73,7 @@ public class MessageService {
      *  @throws BadRequestException When the new message text is blank or has a length greater than 255.
      *                              Or when the message to be updated does not exist.
      */
+    @Transactional
     public int updateMessageText(String messageText, int messageId) throws BadRequestException {
         if(messageText.isBlank()) {
             throw new BadRequestException("Message text must not be blank.");
