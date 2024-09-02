@@ -51,7 +51,7 @@ public class MessageService {
      *  @param  messageId The ID of the message to be retrieved from the database.
      *  @return The matching message from the database. If there is no message with the given ID, return null.
      */
-    public Message getMessageByMessageId(int messageId) {
+    public Message getMessage(int messageId) {
         Optional<Message> optMessage = messageRepository.findById(messageId);
         return optMessage.orElse(null);
     }
@@ -60,7 +60,7 @@ public class MessageService {
      *  @param  messageId The ID of the message to be deleted from the database.
      *  @return The number of rows that were updated (deleted) in the database. 
      */
-    public int removeMessage(int messageId) {
+    public int deleteMessage(int messageId) {
         return messageRepository.deleteByMessageId(messageId);
     }
 
@@ -87,7 +87,7 @@ public class MessageService {
      *  @param  accountId   The ID of the account which posted the messages to be retrieved.
      *  @return A list of messages posted by the identified account.
      */
-    public List<Message> getAllMessagesByUser(int accountId) {
+    public List<Message> getAllMessagesByAccount(int accountId) {
         return messageRepository.findMessagesByPostedBy(accountId);
     }
 }

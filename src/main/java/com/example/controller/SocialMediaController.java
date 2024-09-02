@@ -97,7 +97,7 @@ public class SocialMediaController {
      */
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<Message> retrieveMessageByMessageId(@PathVariable int messageId) {
-        return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessageByMessageId(messageId));
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessage(messageId));
     }
 
     /**
@@ -109,7 +109,7 @@ public class SocialMediaController {
      */
     @DeleteMapping("/messages/{messageId}")
     public ResponseEntity<Integer> deleteMessageByMessageId(@PathVariable int messageId) {
-        int rowsUpdated = messageService.removeMessage(messageId);
+        int rowsUpdated = messageService.deleteMessage(messageId);
         if(rowsUpdated > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(rowsUpdated);
         } else {
@@ -138,8 +138,8 @@ public class SocialMediaController {
      *          and a body containing a list of messages by the identified user.
      */
     @GetMapping("/accounts/{accountId}/messages")
-    public ResponseEntity<List<Message>> getAllMessagesByUser(@PathVariable int accountId) {
-        return ResponseEntity.status(HttpStatus.OK).body(messageService.getAllMessagesByUser(accountId));
+    public ResponseEntity<List<Message>> getAllMessagesByAccount(@PathVariable int accountId) {
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getAllMessagesByAccount(accountId));
     }
 
     // ******************
