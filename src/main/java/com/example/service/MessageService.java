@@ -59,7 +59,6 @@ public class MessageService {
     /**
      *  @param  messageId The ID of the message to be deleted from the database.
      *  @return The number of rows that were updated (deleted) in the database. 
-     *          1 if the deletion was successful, otherwise 0.
      */
     public int removeMessage(int messageId) {
         return messageRepository.deleteByMessageId(messageId);
@@ -67,9 +66,8 @@ public class MessageService {
 
     /**
      *  @param  messageText The new message text that will be used to update the existing message.
-     *  @param  messageId   The ID of the message to be deleted from the database.
-     *  @return The number of rows that were updated (deleted) in the database. 
-     *          1 if the deletion was successful, otherwise 0.
+     *  @param  messageId   The ID of the message to be updated.
+     *  @return The number of rows that were updated in the database.
      *  @throws BadRequestException When the new message text is blank or has a length greater than 255.
      *                              Or when the message to be updated does not exist.
      */
@@ -86,8 +84,8 @@ public class MessageService {
     }
 
     /**
-     *  @param  accountId   The ID of the account who posted the messages to be retrieved.
-     *  @return A list of messages authored by the identified account.
+     *  @param  accountId   The ID of the account which posted the messages to be retrieved.
+     *  @return A list of messages posted by the identified account.
      */
     public List<Message> getAllMessagesByUser(int accountId) {
         return messageRepository.findMessagesByPostedBy(accountId);

@@ -93,7 +93,7 @@ public class SocialMediaController {
      *  Requirement #5: Retrieve a message by its ID.
      *  @param  messageId The ID of the message to be retrieved.
      *  @return A ResponseEntity with the status of 200 (OK) 
-     *          and a body the matching message. Body is empty if there is no matching message.
+     *          and a body representing the matching message. Body is empty if there is no matching message.
      */
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<Message> retrieveMessageByMessageId(@PathVariable int messageId) {
@@ -105,6 +105,7 @@ public class SocialMediaController {
      *  @param  messageId The ID of the message to be deleted.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body containing the number of rows in the database that were updated (deleted).
+     *          The body will be empty if the deletion was unsuccessful.
      */
     @DeleteMapping("/messages/{messageId}")
     public ResponseEntity<Integer> deleteMessageByMessageId(@PathVariable int messageId) {
@@ -132,7 +133,7 @@ public class SocialMediaController {
 
     /**
      *  Requirement #8: Retrieve all messages written by a particular user.
-     *  @param  accountId   The ID of the account who posted the messages to be retrieved.
+     *  @param  accountId   The ID of the account which posted the messages to be retrieved.
      *  @return A ResponseEntity with the status of 200 (OK) 
      *          and a body containing a list of messages by the identified user.
      */
