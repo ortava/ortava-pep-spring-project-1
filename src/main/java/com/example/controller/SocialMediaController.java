@@ -86,7 +86,7 @@ public class SocialMediaController {
      */
     @GetMapping("/messages")
     public ResponseEntity<List<Message>> retrieveAllMessages() {
-        return ResponseEntity.status(200).body(messageService.getAllMessages());
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getAllMessages());
     }
 
      /**
@@ -97,7 +97,7 @@ public class SocialMediaController {
      */
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<Message> retrieveMessageByMessageId(@PathVariable int messageId) {
-        return ResponseEntity.status(200).body(messageService.getMessageByMessageId(messageId));
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessageByMessageId(messageId));
     }
 
     /**
@@ -111,9 +111,9 @@ public class SocialMediaController {
     public ResponseEntity<Integer> deleteMessageByMessageId(@PathVariable int messageId) {
         int rowsUpdated = messageService.removeMessage(messageId);
         if(rowsUpdated > 0) {
-            return ResponseEntity.status(200).body(rowsUpdated);
+            return ResponseEntity.status(HttpStatus.OK).body(rowsUpdated);
         } else {
-            return ResponseEntity.status(200).build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
     }
 
@@ -128,7 +128,7 @@ public class SocialMediaController {
     @PatchMapping("/messages/{messageId}")
     public ResponseEntity<Integer> patchMessageTextByMessageId(@RequestBody Message newMessage, @PathVariable int messageId) throws BadRequestException {
         String messageText = newMessage.getMessageText();
-        return ResponseEntity.status(200).body(messageService.updateMessageText(messageText, messageId));
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.updateMessageText(messageText, messageId));
     }
 
     /**
@@ -139,7 +139,7 @@ public class SocialMediaController {
      */
     @GetMapping("/accounts/{accountId}/messages")
     public ResponseEntity<List<Message>> getAllMessagesByUser(@PathVariable int accountId) {
-        return ResponseEntity.status(200).body(messageService.getAllMessagesByUser(accountId));
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getAllMessagesByUser(accountId));
     }
 
     // ******************
