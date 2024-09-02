@@ -30,11 +30,11 @@ public class MessageService {
      */
     public Message addMessage(Message message) throws BadRequestException {
         if(message.getMessageText().isBlank()) {
-            throw new BadRequestException("Your message must not be blank.");
+            throw new BadRequestException("Message text must not be blank.");
         } else if(message.getMessageText().length() > 255) {
-            throw new BadRequestException("Your message must not exceed 255 characters.");
+            throw new BadRequestException("Message text must not exceed 255 characters.");
         } else if(!accountRepository.findById(message.getPostedBy()).isPresent()) {
-            throw new BadRequestException("You do not exist!");
+            throw new BadRequestException("User does not exist!");
         } else {
             return messageRepository.save(message);
         }
@@ -73,9 +73,9 @@ public class MessageService {
      */
     public int updateMessageText(String messageText, int messageId) throws BadRequestException {
         if(messageText.isBlank()) {
-            throw new BadRequestException("Your message must not be blank.");
+            throw new BadRequestException("Message text must not be blank.");
         } else if(messageText.length() > 255) {
-            throw new BadRequestException("Your message must not exceed 255 characters.");
+            throw new BadRequestException("Message text must not exceed 255 characters.");
         } else if(!messageRepository.existsById(messageId)) {
             throw new BadRequestException("The message you are trying to update does not exist.");
         } else {
